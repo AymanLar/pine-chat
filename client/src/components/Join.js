@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
-const Join = () => {
+const Join = ({socket}) => {
   // make use of the useState hook to get the input values from the form
   const [userName, setUserName] = useState("");
   const [room, setRoom] = useState("");
@@ -13,6 +13,9 @@ const Join = () => {
     //prevent the browser from automatic refreshing
     e.preventDefault();
     if(!userName || !room) return
+
+    socket.emit("join_chat", room );
+
 
     navigate(`/chat?user=${userName}&room=${room}`)
 
@@ -52,7 +55,6 @@ const Join = () => {
     </Wrapper>
   );
 };
-
 //make use of styled component to add css to each page without worry of name conflict
 const Wrapper = styled.section`
   min-height: 100vh;
