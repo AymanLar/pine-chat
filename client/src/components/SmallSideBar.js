@@ -1,7 +1,9 @@
 import { FaTimes } from "react-icons/fa"
 import styled from "styled-components"
+import { useAppContext } from "../context"
 
-const SmallSideBar = ({showSideBar, toggleSideBar}) => {
+const SmallSideBar = () => {
+    const {toggleSideBar, showSideBar} = useAppContext()
     return <Wrapper>
         <div className={`${showSideBar ? "sidebar-container show-sidebar" : "sidebar-container"}`}>
             <div className="content">

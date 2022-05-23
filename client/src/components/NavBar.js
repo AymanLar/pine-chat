@@ -1,9 +1,11 @@
 import styled from "styled-components"
 import {FaAlignLeft} from 'react-icons/fa'
 import { Link } from "react-router-dom"
+import { useAppContext } from "../context"
 
 
-const NavBar = ({toggleSideBar}) => {
+const NavBar = () => {
+    const {toggleSideBar, exitChat} = useAppContext()
     
     return <Wrapper>
         <div className="nav-center">
@@ -13,7 +15,7 @@ const NavBar = ({toggleSideBar}) => {
             <div>
                 <h3>pine chat</h3>
             </div>
-            <Link to="/" className="btn leaveChat-btn">Exit Chat</Link>
+            <Link to="/" className="btn leaveChat-btn" onClick={exitChat}>Exit Chat</Link>
         </div>
     </Wrapper>
 }

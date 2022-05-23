@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import styled from "styled-components";
 import ChatBoard from "./ChatBoard";
 import Footer from "./Footer";
@@ -6,22 +6,18 @@ import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 import SmallSideBar from "./SmallSideBar";
 
+
+
 const Chat = () => {
-  const [showSideBar, setShowSideBar] = useState(false);
 
-  // a function that will toggle the state of the showsidebar
-
-  const toggleSideBar = () => {
-    setShowSideBar(!showSideBar);
-  };
 
   return (
     <Wrapper>
       <main className="chat-dashboard">
         <SideBar />
-        <SmallSideBar showSideBar={showSideBar} toggleSideBar={toggleSideBar}/>
+        <SmallSideBar  />
         <div className="chat-page">
-          <NavBar toggleSideBar={toggleSideBar} />
+          <NavBar  />
           <ChatBoard />
           <Footer />
         </div>
@@ -47,6 +43,7 @@ const Wrapper = styled.section`
     }
     .chat-page {
       grid-template-rows: 1fr auto;
+      width: 100%;
     }
   }
 `;
