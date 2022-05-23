@@ -4,6 +4,7 @@ const http = require('http');
 const cors = require('cors');
 const { Server } = require("socket.io");
 
+
 app.use(cors());
 
 
@@ -24,6 +25,10 @@ io.on('connection', (socket) => {
         console.log("user Joined", socket.id, 'Room ', data); 
     });
 
+    //when user send message
+    socket.on("send_message", (data) => {
+        socket.to(data.room).emit('recieved', data) 
+    })
     // when a user leaves the chat, we emit a message to the client //
     socket.on('disconnect', () => {
         console.log("user Disconnected", socket.id);

@@ -1,28 +1,21 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
 
-const Join = ({socket}) => {
-  // make use of the useState hook to get the input values from the form
-  const [userName, setUserName] = useState("");
-  const [room, setRoom] = useState("");
+import { Link, useNavigate } from "react-router-dom";
+import { useAppContext } from "../context";
 
-  const navigate = useNavigate()
+const Join = () => {
+  const navigate = useNavigate();
+  const { name, room, handleNameChange, handleRoomChange, socket } =
+    useAppContext();
 
-  const handleSubmit = (e) => {
-    //prevent the browser from automatic refreshing
-    e.preventDefault();
-    if(!userName || !room) return
-
-    socket.emit("join_chat", room );
-
-
-    navigate(`/chat?user=${userName}&room=${room}`)
-
+  const joinChat = (e) => {
+    if (!name || !room) return;
+    socket.emit("join_chat", room);
+    navigate("/chat");
   };
   return (
     <Wrapper>
-      <form onSubmit={handleSubmit} className="form">
+      <div className="form">
         <h3>Join Pine-Chat</h3>
         <div className="form-row">
           <label htmlFor="userName" className="form-label">
@@ -32,8 +25,8 @@ const Join = ({socket}) => {
             type="text"
             name="userName"
             className="form-input"
-            onChange={(e) => setUserName(e.target.value)}
-            value={userName}
+            onChange={handleNameChange}
+            value={name}
           />
         </div>
         <div className="form-row">
@@ -45,13 +38,14 @@ const Join = ({socket}) => {
             name="room"
             className="form-input"
             value={room}
-            onChange={(e) => setRoom(e.target.value)}
+            onChange={handleRoomChange}
           />
         </div>
-        <button type="submit" className="btn btn-block">
+
+        <button className="btn btn-block" onClick={joinChat}>
           join chat
         </button>
-      </form>
+      </div>
     </Wrapper>
   );
 };
